@@ -1,0 +1,89 @@
+#!/bin/sh
+
+
+# xdg specification
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_STATE_HOME="${HOME}/.local/state"
+export XDG_PATH_HOME="${HOME}/.local/bin"
+
+# java
+export JAVA_HOME="/usr/lib/jvm/default/release"
+
+## QT
+# export QT_STYLE_OVERRIDE=kvantum
+export QT_QPA_PLATFORMTHEME="qt5ct"
+# WGET
+export WGETRC="${HOME}/.config/wget/wgetrc"
+
+
+
+# App defaults
+export FILE_MANAGER="yazi"
+export TERMINAL="wezterm start --always-new-process"
+export OPENER="xdg-open"
+export EDITOR="nvim"
+export BROWSER="chromium-browser"
+export PAGER="less"
+export VISUAL="$EDITOR"
+GPG_TTY="$(tty)"
+export GPG_TTY
+
+
+
+
+# PATH
+## .local/bin
+if echo "$PATH" | grep -vq "$XDG_PATH_HOME"; then
+    export PATH="${PATH}:${XDG_PATH_HOME}"
+fi
+## User scripts
+if [ -d "$HOME/.config/shell/scripts" ]; then
+    if echo "$PATH" | grep -vq "$HOME/.config/shell/scripts"; then
+        export PATH="$PATH:$HOME/.config/shell/scripts"
+    fi
+fi
+## ccache
+if command -v ccache >/dev/null 2>&1 ; then
+    if echo "$PATH" | grep -vq "/usr/lib/ccache/bin"; then
+        export PATH="$PATH:/usr/lib/ccache/bin"
+    fi
+fi
+## ruby+gem
+if command -v ruby >/dev/null 2>&1 ; then
+    if echo "$PATH" | grep -vq "$XDG_DATA_HOME/gem/ruby/3.0.0/bin"; then
+        export PATH="$PATH:$XDG_DATA_HOME/gem/ruby/3.0.0/bin"
+    fi
+fi
+## go
+if command -v go >/dev/null 2>&1 ; then
+    if echo "$PATH" | grep -vq "$(go env GOBIN)"; then
+        PATH="$PATH:$(go env GOBIN)"
+        export PATH
+    fi
+    if echo "$PATH" | grep -vq "$(go env GOPATH)/bin"; then
+        PATH="$PATH:$(go env GOPATH)/bin"
+        export PATH
+    fi
+fi
+## cargo
+if command -v cargo >/dev/null 2>&1 ; then
+    if echo "$PATH" | grep -vq "$XDG_DATA_HOME/cargo/bin"; then
+        export PATH="$PATH:$XDG_DATA_HOME/cargo/bin"
+    fi
+fi
+## perl
+if command -v perl >/dev/null 2>&1 ; then
+    if echo "$PATH" | grep -vq "$HOME/perl5/bin"; then
+        export PATH="$PATH:$HOME/perl5/bin"
+    fi
+fi
+## nix
+if [ -e  "$HOME/.local/state/nix/profile/etc/profile.d/nix.sh" ]; then
+    if echo "$PATH" | grep -vq "$XDG_STATE_HOME/nix/profile/bin"; then
+        . "$HOME/.local/state/nix/profile/etc/profile.d/nix.sh";
+    fi
+fi
+## flatpak
+export XDG_DATA_DIRS="$XDG_DATA_DIRS:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"

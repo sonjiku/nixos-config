@@ -1,0 +1,9 @@
+.extra.backup/**
+**/nvim/spell/**
+**/openmw/**
+**/tmux/plugins/**
+**/nnn/plugins/**
+**/ncmpcpp/error.log
+**/ncmpcpp/patterns.list
+*log
+*tmp*

@@ -1,0 +1,102 @@
+#! /usr/bin/env sh
+
+opt_d=0
+opt_i=0
+opt_t=0
+
+while [ "$1" != "" ]; do
+    case "$1" in
+        -d | --decrease)
+            opt_d=1
+            CTRL="decr"
+            ;;
+        -i | --increase)
+            opt_i=1
+            CTRL="incr"
+            ;;
+        -t | --toggle)
+            opt_t=1
+            CTRL="mute"
+            ;;
+        -l | --lockfile)
+            LOCKFILE="/tmp/sysnot"
+            ;;
+        -h | --help)
+            echo "Usage: $(basename $0) [-d|-i|-t] [-l] [-h]"
+            echo "  -d, --decrease      Decrease volume"
+            echo "  -i, --increase      Increase volume"
+            echo "  -t, --toggle        Toggle mute"
+            echo "  -l, --lockfile      Set log level (optional)"
+            echo "  -h, --help          Display this help message"
+            echo "It ain't rocket science..."
+            exit
+            ;;
+        *)
+            echo "Invalid option: $1"
+            exit 1
+            ;;
+    esac
+    shift  # Move to next argument
+done
+## Ensure an option has been provided
+if [ $((opt_d + opt_i + opt_t)) -gt 1 ]; then
+    echo "'-d','-i' and '-t' are mutually exclusive."
+    exit 1
+fi
+
+if [ -z "$CTRL" ]; then
+    echo "'-d','-i' or '-t' are required."
+    exit 1
+fi
+
+
+## We don't want to overwhelm the notification daemon
+## We don't want to overwhelm mako
+if [ -n "$LOCKFILE" ]; then
+    if [ -f "$LOCKFILE" ]; then
+        exit
+    else
+        touch "$LOCKFILE" || exit 1
+    fi
+fi
+
+
+## Volume change step
+STEP=2.00
+
+# iDIR="$HOME/.config/mako/icons"
+
+VOLNOW="$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2 * 100}')"
+
+case "$CTRL" in
+    "decr")
+        wpctl set-volume @DEFAULT_AUDIO_SINK@ "$STEP"%-
+        MSG="Volume: ${VOLNOW}%"
+        ;;
+    "incr")
+        wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ "$STEP"%+
+        MSG="Volume: ${VOLNOW}%"
+        ;;
+    "mute")
+        wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+        if wpctl get-volume @DEFAULT_SINK@ | grep -q 'MUTED'; then
+            MSG="Mute: On"
+        else
+            MSG="Mute: Off"
+        fi
+        ;;
+    * )
+        echo "Not a valid option. Choose either -t, -d or -i"
+esac
+
+notify-send -h\
+    "string:x-canonical-private-synchronous:sys-vol"\
+    -h "int:value:${VOLNOW}" -c "device" -u "low"\
+    "Audio" "$MSG"
+    # -i "$(get_icon)"\
+
+if [ -n "$LOCKFILE" ]; then
+    if [ -f "$LOCKFILE" ]; then
+        rm "$LOCKFILE" || exit 1 
+    fi
+fi

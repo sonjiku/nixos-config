@@ -1,0 +1,8 @@
+# !/bin/env sh
+# if [ -d "$HOME/.local/state/nix/profile/lib/" ]; then
+#     export DSSI_PATH="$HOME/.local/state/nix/profile/lib/dssi:/usr/lib64/dssi";
+#     export LADSPA_PATH="$HOME/.local/state/nix/profile/lib/ladspa:/usr/lib64/ladspa";
+#     export LV2_PATH="$HOME/.local/state/nix/profile/lib/lv2:/usr/lib64/lv2";
+#     export LXVST_PATH="$HOME/.local/state/nix/profile/lib/lxvst:/usr/lib64/lxvst";
+#     export VST_PATH="$HOME/.local/state/nix/profile/lib/vst:/usr/lib64/vst";
+# fi

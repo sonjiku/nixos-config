@@ -1,0 +1,5 @@
+#!/bin/env sh
+if command -v python >/dev/null 2>&1 ; then
+    export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup.py"
+    export PYTHONHISTFILE="$XDG_STATE_HOME/python_history"
+fi

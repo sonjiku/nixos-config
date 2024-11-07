@@ -1,0 +1,15 @@
+#! /usr/bin/env sh
+if command -v wal >/dev/null 2>&1 ; then
+    if [ "$#" -eq 1 ]; then
+        file="$1"
+        wal -i "$file";
+        # filename="$(echo $file | sed 's:.*/::')";
+        # wpg -a "${file}";
+        # wpg -A "${filename}";
+        # wpg -s "${filename}";
+    else
+        echo "ERROR: Too many or not enough arguments!" 1>&2
+    fi
+else
+    echo "wal not found in \$PATH" 1>&2
+fi

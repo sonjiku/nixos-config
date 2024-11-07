@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#
+
+music_dir="$HOME/music"
+port=6669
+previewdir="$XDG_CACHE_HOME/mpd/previews"
+if [ ! -d "$previewdir" ]; then
+    mkdir "$previewdir"
+fi
+filename="$(mpc -p $port --format "$music_dir"/%file% current)"
+previewname="$previewdir/$(mpc -p $port --format %album% current | base64).png"
+
+[ -e "$previewname" ] || ffmpeg -y -i "$filename" -an -vf scale=128:128 "$previewname" > /dev/null 2>&1
+
+notify-send -r 27072
+notify-send -h\
+    "string:x-canonical-private-synchronous:music"\
+    -c "mpd" -u "low"\
+    "Now Playing"\
+    "$(mpc -p $port --format '%title% \n%artist% - %album%' current)"\
+    -i "$previewname"
+    # -i "$(get_icon)"\

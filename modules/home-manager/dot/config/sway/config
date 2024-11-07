@@ -1,0 +1,4 @@
+# Sway config
+# include files
+include ~/.config/sway/config.d/*
+include ~/.config/sway/keybindings/*

@@ -1,0 +1,63 @@
+set meta-flag on
+set input-meta on
+set convert-meta off
+set output-meta on
+# Color files by types
+set colored-stats On
+# Append char to indicate type
+set visible-stats On
+# Mark symlinked directories
+set mark-symlinked-directories On
+# Case insesitive completion
+set completion-ignore-case On
+# Max number of characters of common prefix for completions
+set completion-prefix-display-length 3
+# Color the common prefix
+set colored-completion-prefix On
+# Color the common prefix in menu-complete
+set menu-complete-display-prefix On
+# List completions immediately
+set show-all-if-ambiguous On 
+set show-all-if-unmodified On
+# Hide Control Characters
+set echo-control-characters off
+
+# Set Vi mode 
+set editing-mode vi
+set show-mode-in-prompt On
+# If inside VT
+$if term=linux
+    set vi-ins-mode-string "\1\e[?0c\2"
+    set vi-cmd-mode-string "\1\e[?8c\2"
+$else
+    set vi-ins-mode-string "\1\e[5 q\2"
+    set vi-cmd-mode-string "\1\e[1 q\2"
+$endif
+
+# Vi command mode binds
+set keymap vi-command
+j: history-search-forward
+k: history-search-backward
+"G": beginning-of-history
+"gg": end-of-history
+
+# Vi insert mode binds
+set keymap vi-insert
+"\C-j": menu-complete
+"\C-k": menu-complete-backward
+"\C-d": kill-line
+"\C-r": overwrite-mode
+"\C-x": delete-char-or-list
+"\C-b": beginning-of-line
+"\C-e": end-of-line
+"\C-h": backward-word
+"\C-l": forward-word
+# History
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+# "\C-u": "\e[D"
+# "\C-u": "\e[C"
+# "\e\C-l": "\C-e | less\C-m"
+# "\e\C-y": "\C-ayes | \C-m"
+# "\es": "\C-a su -c '\C-e'\C-m"
+# "\e\C-b": "\C-e > /dev/null 2>&1 &\C-m"

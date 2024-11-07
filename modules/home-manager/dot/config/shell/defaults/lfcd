@@ -1,0 +1,7 @@
+#!/bin/env sh
+if command -v lf >/dev/null 2>&1 ; then
+    LFCD="$XDG_CONFIG_HOME/lf/lfcd.sh"
+    if [ -f "$LFCD" ]; then
+        . "$LFCD"
+    fi
+fi

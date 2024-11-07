@@ -1,0 +1,22 @@
+#!/bin/env sh
+if command -v nnn >/dev/null 2>&1 ; then
+    export NNN_OPTS="cdaEHU"
+    export NNN_USE_EDITOR=1
+    export NNN_COLORS="1236"
+    export NNN_FCOLORS="060b040a00050e0809020d01"
+    export NNN_OPENER="$XDG_CONFIG_HOME/nnn/plugins/nuke"
+    export NNN_BMS="d:$HOME/Documents;D:$HOME/Downloads;c:$XDG_CONFIG_HOME;b:$HOME/.bin"
+    export NNN_PLUG='p:fzplug;d:dups;u:getplugs;r:gutenread;t:imgthumb;i:!timg -F -C -U 16 $nnn;P:pdfview;e:suedit;w:uidgid;x:!chmod +x $nnn;g:!git log;f:-!|firefox $nnn'
+    # export NNN_FIFO="$XDG_STATE_HOME/nnn.fifo"
+    # export USE_SCOPE="1"
+    alias n="LC_COLLATE=C nnn"
+
+    # if [ -f "$XDG_CONFIG_HOME/nnn/.selection" ]; then
+    #     
+        # NNN_SEL=$(cat $XDG_CONFIG_HOME/nnn/.selection | sed -Ee 's~\x00~\n~g' | sed -E 's~(.*/?)([^/]*/[^/]*)$~\2~m')
+    # fi
+
+    if echo "$PATH" | grep -vq "$XDG_CONFIG_HOME/nnn/plugins/"; then
+        export PATH="$PATH:$XDG_CONFIG_HOME/nnn/plugins/"
+    fi
+fi

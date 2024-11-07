@@ -1,0 +1,52 @@
+#!/bin/env sh
+
+################
+# shell aliases #
+################
+alias FUCK='sudo $(fc -ln -1)'
+alias sushi='sudo -s $SHELL'
+alias fm='$FILE_MANAGER'
+
+###################
+# FILE MANAGEMENT #
+###################
+# Quick ls
+alias dirc="dir --color=auto"
+alias vdir="LC_COLLATE=C vdir --color=auto --group-directories-first -ahF"
+alias l="ls --color=auto -F"
+alias la="l -a"
+# Quick cd
+alias cdc='cd $HOME/.config'
+alias cds="cd /etc/systemd/system"
+alias cde="cd /etc"
+# alias ..="cd .."
+# alias ...="cd .. ; cd .."
+# alias ....="cd .. ; cd .. ; cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+alias .......='echo "Just go home."; cd $HOME'
+
+
+# Quit
+alias q="exit"
+alias sys="systemctl"
+alias sysusr="systemctl --user"
+
+##########
+# PACMAN #
+##########
+    # alias pacsyu='pacman -Syu'
+    # alias paclean='pacman -Scc'
+    # alias pacins='pacman -S'
+    # alias pacrm='pacman -Rscn'
+
+#############
+# COMPILING #
+#############
+## GROFF
+    # # Quick ps to png
+    # alias ps2png="gs -dNOPAUSE -dBATCH -sDEVICE=png16m -r120x120 -sOutputFile='ps-%d.png'"
+    # # Quick ms to ps
+    # alias gmsps="groff -m ms -T ps"

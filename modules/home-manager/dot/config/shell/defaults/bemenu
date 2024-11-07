@@ -1,0 +1,10 @@
+#!/bin/env sh
+if command -v bemenu >/dev/null 2>&1 ; then
+    export BEMENU_OPTS="\
+    --fn 'JetBrainsMono Nerd Font Propo 14'\
+    -c\
+    -l 10\
+    -W 0.4\
+    -P > --scrollbar autohide"
+    . "$HOME/.cache/wallust/bemenu"
+fi

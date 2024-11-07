@@ -1,0 +1,15 @@
+#!/bin/sh
+
+export BEMENU_OPTS="$BEMENU_OPTS\
+       --tb '{cursor}cc'\
+       --tf '{foreground}ff'\
+       --fb '{background}cc'\
+       --ff '{foreground}ff'\
+       --nb '{background}cc'\
+       --nf '{foreground}ff'\
+       --hb '{cursor}cc'\
+       --hf '{foreground}ff'\
+       --sb '{color4}cc'\
+       --sf '{foreground}ff'\
+       --scb '{background}cc'\
+       --scf '{cursor}ff'"

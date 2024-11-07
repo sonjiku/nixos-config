@@ -1,0 +1,94 @@
+#! /usr/bin/env sh
+
+if ! command -v wlsunset >/dev/null 2>&1 ; then
+    echo 'Error: wlsunset is not in $PATH. Check if it is installed.'
+    exit 1
+fi
+
+LAT=""
+LON=""
+if [ -n "$XDG_CACHE_HOME" ]; then
+    LOCKDIR="$XDG_CACHE_HOME"
+else
+    LOCKDIR="$HOME/.cache"
+fi
+mkdir -p "$LOCKDIR"
+
+__log() {
+    LOGFILE="/tmp/$(basename $0).log"  # Specify your log file here
+    if [ ! -f "$LOGFILE" ]; then
+        touch "$LOGFILE"
+    fi
+
+    # If there are arguments, join them into a single string and append
+    if [ "$#" -gt 0 ]; then
+        echo "$(date '+%Y-%m-%d %H:%M:%S') $*" >> "$LOGFILE"
+    else
+        # If no arguments, read from standard input and append
+        while IFS= read -r line; do
+            echo "$(date '+%Y-%m-%d %H:%M:%S') $line" >> "$LOGFILE"
+        done
+    fi
+}
+
+if command -v wget >/dev/null 2>&1 ; then
+    GETGEO=""
+    WEEK_IN_SECONDS=$((7 * 24 * 60 * 60))
+    LOCK="$LOCKDIR/$(basename $0)"
+
+    if [ ! -f "$LOCK" ]; then
+        GETGEO=1
+        __log "I: No lockfile." &
+    else
+        __log "I: Found lockfile." &
+        CREATION_TIME="$(stat -c %W "$LOCK")"
+        CURRENT_TIME="$(date +%s)"
+        FILE_AGE="$((CURRENT_TIME - CREATION_TIME))"
+        if [ "$FILE_AGE" -ge "$WEEK_IN_SECONDS" ]; then
+            rm "$LOCK"
+            GETGEO=1
+            __log "I: Deleted old lockfile." &
+        fi
+    fi
+
+    if [ -n "$GETGEO" ]; then
+        IPADDRESS="$(wget -qO- "https://api.ipify.org")"
+        if [ -n "$IPADDRESS" ]; then
+            LAT="$(wget -qO- "http://ip-api.com/line/${IPADDRESS}?fields=lat")"
+            LON="$(wget -qO- "http://ip-api.com/line/${IPADDRESS}?fields=lon")"
+            if [ -n "$LAT" ] && [ -n "$LON" ];then 
+                LAT="-l $LAT"
+                LON="-L $LON"
+                printf "%s\n%s" "$LAT" "$LON" > "$LOCK"
+                __log "I: Recieved LAT:$LAT LON:$LON." &
+            else
+                __log "E: Didn't recieve geolocation info." &
+            fi
+        else
+            __log "E: Didn't recieve IP address." &
+        fi
+    else
+        LAT="$(head -n 1 "$LOCK")"
+        LON="$(tail -n 1 "$LOCK")"
+        __log "I: Read geo info from lockfile. LAT:$LAT LON:$LON" &
+    fi
+fi
+
+ICON="nightmode.png"
+GAMMA=1.00
+TEMPLO=4000
+TEMPHI=6000
+
+if  pgrep -x wlsunset >/dev/null ; then
+    killall -q wlsunset
+    STATUS="Off"
+else
+    wlsunset -t "$TEMPLO" -T "$TEMPHI" -g "$GAMMA" "$LON" "$LAT" >/dev/null 2>&1&
+    STATUS="On"
+fi
+
+notify-send -h "string:x-canonical-private-synchronous:sys-nightmode" -u "low" -c "device" -i "$ICON" "Night Mode" "$STATUS"
+
+__log "I: TOGGLE: $STATUS " &
+
+exit 0

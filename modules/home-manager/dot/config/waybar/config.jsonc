@@ -1,0 +1,146 @@
+[{
+    "name": "top",
+    "position": "top",
+    "layer": "top",
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-bottom": 0,
+    "margin-right": 0,
+    "spacing": 0,
+
+
+
+    "modules-left": [
+        "sway/workspaces",
+        "sway/mode"
+    ],
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false,
+        "format": "{name}" },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>" },
+
+
+    "modules-center": [
+        "sway/window"
+    ],
+    "sway/window": { "format": "{title}" },
+
+
+    "modules-right": [
+        "tray",
+        "backlight",
+        "pulseaudio"
+    ],
+
+
+
+
+
+
+
+    "tray": {
+        "icon-size": 21,
+        "spacing": 0 },
+
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{percent}% {icon}",
+        "format-icons": ["󰃚", "󰃛", "󰃜", "󰃝", "󰃞", "󰃟", "󰃠"],
+        "on-scroll-up": "brightnessctl set 2%+",
+        "on-scroll-down": "brightnessctl set 2%-",
+        "on-click": "wlsund -t" },
+
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "-- 󰝟",
+        "format-icons": {
+            "headphones": "󰋋",
+            "handsfree": "󰋌",
+            "headset": "󰋎",
+            "phone": "󰏲",
+            "portable": "󰏲",
+            "car": "󰄋",
+            "default": ["󰕿", "", ""] },
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-middle": "pavucontrol",
+        "on-click-right": "qpwgraph" }
+
+},
+{
+    "name": "bot",
+    "position": "bottom",
+    "layer": "top",
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-bottom": 0,
+    "margin-right": 0,
+    "spacing": 0,
+
+
+
+    "modules-left": [
+        "cpu",
+        "memory",
+        "temperature"
+    ],
+    "cpu": {
+        "interval": 10,
+        "format": " <b>{usage}%</b>",
+        "max-length": 10
+    },
+    "memory": {
+        "interval": 30,
+        "format": " <b>{}%</b>",
+        "format-alt": " <b>{used:0.1f}G</b>",
+        "max-length": 10
+    },
+    "temperature": {
+        "thermal-zone": 0,
+        "critical-threshold": 80,
+        "format-critical": " {temperatureC}°C</b>",
+        "format": " <b>{temperatureC}°C</b>"
+    },
+
+
+
+    "modules-center": [
+        "mpris"
+    ],
+    "mpris": {
+        "format": "{player_icon}",
+        "format-paused": "{status_icon}",
+        "max-length": 10,
+        "player-icons": {
+                "default": "󰝚",
+                "spotify": "",
+                "mpv": "▶"
+        },
+        "status-icons": {
+                "paused": "⏸"
+        }
+    },
+
+
+
+    "modules-right": [
+        "custom/batsignal",
+        "clock"
+    ],
+    "custom/batsignal": {
+        "format": "{percentage}% {icon}",
+        "return-type": "json",
+        "max-length": 40,
+        "interval": 60,
+        "format-icons": ["", "", "", "", ""],
+        "exec": "$XDG_CONFIG_HOME/waybar/modules/batsignal.sh",
+        "on-click": "notify-send \"I love you!\"" },
+    "clock": {
+        "format": "{:%H:%M} 󰅐",
+        "format-alt": "{:%d-%m-%y} 󰃭",
+        "tooltip-format": "{:%R %A %d-%m-%y }"
+    }
+
+}]

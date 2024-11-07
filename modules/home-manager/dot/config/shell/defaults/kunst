@@ -1,0 +1,6 @@
+#!/bin/env sh
+if command -v kunst >/dev/null 2>&1 ; then
+    export KUNST_MUSIC_DIR="$HOME/Music"
+    export KUNST_POSITION="+0+0"
+    export KUNST_SIZE="500x500"
+fi

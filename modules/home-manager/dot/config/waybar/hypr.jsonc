@@ -1,0 +1,351 @@
+[
+    {
+    "name": "top",
+    "position": "top",
+    "layer": "top",
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-bottom": 0,
+    "margin-right": 0,
+    "spacing": 0,
+
+
+
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/submap"
+    ],
+    "wlr/workspaces": {
+        "format": "{name}: {icon}",
+        "sort-by-number": true
+    },
+
+
+    "modules-center": [
+        "hyprland/window"
+    ],
+    "hyprland/window": {
+        "format": "{}",
+        "separate-outputs": true
+    },
+
+
+    "modules-right": [
+        "tray",
+        "backlight",
+        "pulseaudio"
+    ],
+
+
+
+
+
+
+
+    "tray": {
+        "icon-size": 21,
+        "spacing": 0 },
+
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{percent}% {icon}",
+        "format-icons": ["󰃚", "󰃛", "󰃜", "󰃝", "󰃞", "󰃟", "󰃠"],
+        "on-scroll-up": "brightnessctl set 2%+",
+        "on-scroll-down": "brightnessctl set 2%-",
+        "on-click": "wlsund -t" },
+
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "-- 󰝟",
+        "format-icons": {
+            "headphones": "󰋋",
+            "handsfree": "󰋌",
+            "headset": "󰋎",
+            "phone": "󰏲",
+            "portable": "󰏲",
+            "car": "󰄋",
+            "default": ["󰕿", "", ""] },
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-middle": "pavucontrol",
+        "on-click-right": "qpwgraph" }
+
+},
+{
+    "name": "bot",
+    "position": "bottom",
+    "layer": "top",
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-bottom": 0,
+    "margin-right": 0,
+    "spacing": 0,
+
+
+
+    "modules-left": [
+        "cpu",
+        "memory",
+        "temperature"
+    ],
+    "cpu": {
+        "interval": 10,
+        "format": " <b>{usage}%</b>",
+        "max-length": 10
+    },
+    "memory": {
+        "interval": 30,
+        "format": " <b>{}%</b>",
+        "format-alt": " <b>{used:0.1f}G</b>",
+        "max-length": 10
+    },
+    "temperature": {
+        "thermal-zone": 0,
+        "critical-threshold": 80,
+        "format-critical": " {temperatureC}°C</b>",
+        "format": " <b>{temperatureC}°C</b>"
+    },
+
+
+
+    "modules-center": [
+        "mpris"
+    ],
+    "mpris": {
+        "format": "{player_icon}",
+        "format-paused": "{status_icon}",
+        "max-length": 10,
+        "player-icons": {
+                "default": "󰝚",
+                "spotify": "",
+                "mpv": "▶"
+        },
+        "status-icons": {
+                "paused": "⏸"
+        }
+    },
+
+
+
+    "modules-right": [
+        "custom/batsignal",
+        "clock"
+    ],
+    "custom/batsignal": {
+        "format": "{percentage}% {icon}",
+        "return-type": "json",
+        "max-length": 40,
+        "interval": 60,
+        "format-icons": ["", "", "", "", ""],
+        "exec": "$XDG_CONFIG_HOME/waybar/modules/batsignal.sh",
+        "on-click": "notify-send \"I love you!\"" },
+    "clock": {
+        "format": "{:%H:%M} 󰅐",
+        "format-alt": "{:%d-%m-%y} 󰃭",
+        "tooltip-format": "{:%R %A %d-%m-%y }"
+    }
+
+    }
+]
+//[
+//  {
+//    "name": "top",
+//    "position": "top",
+//    "layer": "top",
+//    "margin-top": 0,
+//    "margin-left": 0,
+//    "margin-bottom": 0,
+//    "margin-right": 0,
+//    "spacing": 0,
+//
+//
+//
+//    "modules-left": [
+//      "sway/workspaces",
+//      "sway/mode"
+//    ],
+//    "sway/workspaces": {
+//      "disable-scroll": true,
+//      "all-outputs": false,
+//      "format": "{name}" },
+//    "sway/mode": {
+//      "format": "<span style=\"italic\">{}</span>"
+//    },
+//
+//
+//    "modules-center": [
+//      "sway/window"
+//    ],
+//    "sway/window": { "format": "{title}" },
+//
+//
+//    "modules-right": [
+//      "tray",
+//      "network",
+//      "backlight",
+//      "wireplumber"
+//    ],
+//
+//    "tray": {
+//      "icon-size": 21,
+//      "spacing": 0 },
+//
+//    "network": {
+//      "format": "{ifname}",
+//      "format-wifi": "",
+//      "format-ethernet": "",
+//      "format-disconnected": "No", //An empty format will hide the module.
+//      "tooltip-format": "Interface: {ifname}\nIP: {ipaddr}\n",
+//      "tooltip-format-wifi": "Interface: {ifname}\nIP: {ipaddr}\nESSID: {essid}\nSignal: {signalStrength}%\nFrequency: {frequency}\nDownload: {bandwidthDownBits}\nUpload: {bandwidthUpBits}\nSpeed: {bandwidthTotalBits}",
+//      //"tooltip-format": "{ifname} via {gwaddr} 󰊗",
+//      //"tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+//      //"tooltip-format-ethernet": "{ifname} ",
+//      "tooltip-format-disconnected": "Disconnected",
+//      "on-click-right": "nm-connection-editor"
+//    },
+//
+//    "backlight": {
+//      "device": "intel_backlight",
+//      "format": "{icon}",
+//      "tooltip-format": "{percent}%",
+//      "format-icons": ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+//      "on-scroll-up": "brightctrls -i",
+//      "on-scroll-down": "brightctrls -d",
+//      "on-click": "wlsund -t" },
+//
+//    "wireplumber": {
+//      "format": "{icon}",
+//      "format-bluetooth": "{icon}",
+//      "tooltip-format": "{volume}%\n{node_name}",
+//      "format-muted": "",
+//      "format-icons": ["", "", ""],
+//      "on-scroll-up": "audioctrls -i",
+//      "on-scroll-down": "audioctrls -d",
+//      "on-click-middle": "audioctrls -t",
+//      "on-click-right": "qpwgraph",
+//      "on-click": "pavucontrol" }
+//
+//    },
+//    {
+//    "name": "bot",
+//    "position": "bottom",
+//    "layer": "top",
+//    "margin-top": 0,
+//    "margin-left": 0,
+//    "margin-bottom": 0,
+//    "margin-right": 0,
+//    "spacing": 0,
+//
+//
+//
+//    "modules-left": [
+//      "cpu",
+//      "memory",
+//      "temperature"
+//    ],
+//    "cpu": {
+//      "interval": 10,
+//      "format": " <b>{usage}%</b>",
+//      "max-length": 10
+//    },
+//    "memory": {
+//      "interval": 30,
+//      "format": " <b>{}%</b>",
+//      "format-alt": " <b>{used:0.1f}G</b>",
+//      "max-length": 10
+//    },
+//    "temperature": {
+//      "thermal-zone": 0,
+//      "critical-threshold": 70,
+//      "format-critical": " <b>{temperatureC}°C</b>",
+//      "format": " <b>{temperatureC}°C</b>"
+//    },
+//
+//
+//
+//    "modules-center": [
+//      "mpris",
+//      "cava"
+//    ],
+//    "mpris": {
+//      "format": "{player_icon}",
+//      "format-paused": "{status_icon}",
+//      "max-length": 10,
+//      "player-icons": {
+//              "default": "󰝚",
+//              "spotify": "",
+//              "mpv": "▶"
+//      },
+//      "status-icons": {
+//              "paused": "⏸"
+//      }
+//    },
+//    "cava": {
+//      //"cava_config": "$XDG_CONFIG_HOME/cava/waybar.ini",
+//      "framerate": 60,
+//      "autosens": 1,
+//      "bars": 14,
+//      "lower_cutoff_freq": 20,
+//      "higher_cutoff_freq": 20000,
+//      "method": "pipewire",
+//      "source": "auto",
+//      "stereo": true,
+//      "reverse": false,
+//      "bar_delimiter": 0,
+//      "monstercat": true,
+//      "waves": false,
+//      "noise_reduction": 0.77,
+//      "input_delay": 1,
+//      "format-icons" : ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
+//      "actions": {
+//        "on-click-right": "mode"
+//      }
+//    },
+//
+//
+//
+//    "modules-right": [
+//      "custom/batsignal",
+//      "clock"
+//    ],
+//    "custom/batsignal": {
+//      "format": "{percentage}% {icon}",
+//      "return-type": "json",
+//      "max-length": 40,
+//      "interval": 6,
+//      "format-icons": ["", "", "", "", ""],
+//      "exec": "$XDG_CONFIG_HOME/waybar/modules/batsignal.sh",
+//      "on-click": "notify-send \"I love you!\"" },
+//
+//    "clock": {
+//      //"format": "{:%H:%M} 󰅐",
+//      //"format-alt": "{:%d-%m-%y} 󰃭",
+//      //"tooltip-format": "{:%R %A %d-%m-%y }",
+//
+//      "locale": "en_US.UTF-8",
+//      "timezones": ["Europe/Athens","Etc/UTC", "America/New_York", "America/Los_Angeles"],
+//      "format": "{:%Z %H:%M} 󰅐",
+//      "format-alt": "{:%A, %B %d, %Y (%R)} 󰃭",
+//      "tooltip-format": "<b>{tz_list}</b>\n<tt><small>{calendar}</small></tt>",
+//      "calendar": {
+//        "mode"          : "month",
+//        "mode-mon-col"  : 3,
+//        "weeks-pos"     : "right",
+//        "on-scroll"     : 1,
+//        "format": {
+//          "months":     "<span color='#ffead3'><b>{}</b></span>",
+//          "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+//          "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+//          "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+//          "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+//        }
+//      },
+//      "actions":  {
+//        "on-click-right": "mode",
+//        "on-scroll-up": "shift_up",
+//        "on-scroll-down": "shift_down"
+//      }
+//    }
+//
+//  }
+//]

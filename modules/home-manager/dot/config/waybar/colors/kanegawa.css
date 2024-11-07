@@ -1,0 +1,46 @@
+/*Originally by rebelot(https://github.com/rebelot) and
+ * montdor(https://github.com/montdor), ported by sonjiku
+ * (https://github.com/sonjiku)*/
+
+@define-color background #181616;
+@define-color foreground #c5c9c5;
+@define-color selection-background #2D4F67;
+@define-color selection-foreground #C8C093;
+@define-color extra1                #b6927b;
+@define-color extra2                #b98d7b;
+@define-color black                 #0d0c0c;
+@define-color red                   #c4746e;
+@define-color green                 #8a9a7b;
+@define-color yellow                #c4b28a;
+@define-color blue                  #8ba4b0;
+@define-color magenta               #a292a3;
+@define-color cyan                  #8ea4a2;
+@define-color white                 #C8C093;
+@define-color bright-black          #a6a69c;
+@define-color bright-red            #E46876;
+@define-color bright-green          #87a987;
+@define-color bright-yellow         #E6C384;
+@define-color bright-blue           #7FB4CA;
+@define-color bright-magenta #938AA9;
+@define-color bright-cyan   #7AA89F;
+@define-color bright-white  #c5c9c5;
+
+@define-color color00 @black;
+@define-color color01 @red;
+@define-color color02 @green;
+@define-color color03 @yellow;
+@define-color color04 @blue;
+@define-color color05 @magenta;
+@define-color color06 @cyan;
+@define-color color07 @white;
+@define-color color08 @bright-black;
+@define-color color09 @bright-red;
+@define-color color10 @bright-green;
+@define-color color11 @bright-yellow;
+@define-color color12 @bright-blue;
+@define-color color13 @bright-magenta;
+@define-color color14 @bright-cyan;
+@define-color color15 @bright-white;
+@define-color color16 @extra1;
+@define-color color17 @extra2;
+@define-color cursor @extra1;

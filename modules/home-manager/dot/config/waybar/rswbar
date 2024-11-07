@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+if [ "$XDG_CURRENT_DESKTOP" = "Hyprland" ]; then
+    wbconf="$XDG_CONFIG_HOME/waybar/hypr.jsonc"
+elif [ "$XDG_CURRENT_DESKTOP" = "sway" ]; then
+    wbconf="$XDG_CONFIG_HOME/waybar/sway.jsonc"
+else
+    wbconf="$XDG_CONFIG_HOME/waybar/config.jsonc"
+fi
+
+pkill -f "waybar -c $wbconf"
+# while pkill -f "waybar -c $wbconf"; do sleep 1; done
+nohup waybar -c "$wbconf" > "$XDG_CACHE_HOME/waybar-$XDG_SESSION_ID" &

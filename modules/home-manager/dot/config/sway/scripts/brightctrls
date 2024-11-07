@@ -1,0 +1,99 @@
+#! /usr/bin/env sh
+
+opt_d=0
+opt_i=0
+
+while [ "$1" != "" ]; do
+    case "$1" in
+        -d | --decrease)
+            opt_d=1
+            CTRL="decr"
+            ;;
+        -i | --increase)
+            opt_i=1
+            CTRL="incr"
+            ;;
+        -l | --lockfile)
+            LOCKFILE="/tmp/sysnot"
+            ;;
+        -h | --help)
+            echo "Usage: $(basename $0) [-d|-i|-t] [-l] [-h]"
+            echo "  -d, --decrease      Decrease volume"
+            echo "  -i, --increase      Increase volume"
+            echo "  -l, --lockfile      Set log level (optional)"
+            echo "  -h, --help          Display this help message"
+            echo "It ain't rocket science..."
+            exit
+            ;;
+        *)
+            echo "Invalid option: $1"
+            exit 1
+            ;;
+    esac
+    shift  # Move to next argument
+done
+## Ensure an option has been provided
+if [ $((opt_d + opt_i)) -gt 1 ]; then
+    echo "'-d' and '-i' are mutually exclusive."
+    exit 1
+fi
+
+if [ -z "$CTRL" ]; then
+    echo "'-d' or '-i' are required."
+    exit 1
+fi
+
+
+## We don't want to overwhelm the notification daemon
+## We don't want to overwhelm mako
+if [ -n "$LOCKFILE" ]; then
+    if [ -f "$LOCKFILE" ]; then
+        exit
+    else
+        touch "$LOCKFILE" || exit 1
+    fi
+fi
+
+
+## Volume change step
+STEP=0.80
+
+# iDIR="$HOME/.config/mako/icons"
+
+BRIGHTNOW="$(light -G | sed -E 's`\..*``')"
+
+case "$CTRL" in
+    "decr")
+        light -U $STEP
+        MSG="Brightness: ${BRIGHTNOW}%"
+        ;;
+    "incr")
+        light -A $STEP
+        MSG="Brightness: ${BRIGHTNOW}%"
+        ;;
+    * )
+        echo "Not a valid option. Choose either -t, -d or -i"
+esac
+
+# Get icons
+# if [ "$brightlvl" -eq 0 ]; then
+#         echo "$iDIR/volume-mute.png"
+# elif [ "$brightlvl" -le 30 ]; then
+#         echo "$iDIR/volume-low.png"
+# elif [ "$brightlvl" -le 60 ]; then
+#         echo "$iDIR/volume-mid.png"
+# elif [ "$brightlvl" -le 100 ]; then
+#         echo "$iDIR/volume-high.png"
+# fi
+
+notify-send -h\
+    "string:x-canonical-private-synchronous:sys-vol"\
+    -h "int:value:${BRIGHTNOW}" -c "device" -u "low"\
+    "Backlight" "$MSG"
+    # -i "$(get_icon)"\
+
+if [ -n "$LOCKFILE" ]; then
+    if [ -f "$LOCKFILE" ]; then
+        rm "$LOCKFILE" || exit 1 
+    fi
+fi
