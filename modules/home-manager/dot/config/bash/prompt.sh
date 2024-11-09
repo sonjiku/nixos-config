@@ -111,15 +111,15 @@ __prompt_cmd() {
         ### COMPARE TO UPSTREAM
         local compare_upstream
         local remote
-        compare_upstream="$(git status --ahead-behind | grep "Your branch" | sed 's:.*\(is \w\+\).*:\1:')"
-        compare_upstream="$(git status -sb | grep "##" | grep "\[.*\]")"
+        # compare_upstream="$(git status --ahead-behind | grep "Your branch" | sed 's:.*\(is \w\+\).*:\1:' || echo "ERROR")"
+        compare_upstream="$(git status -sb 2>/dev/null | grep "##" | grep -o "\[.*\]" || echo "ERROR")"
         if [ -z "$compare_upstream" ]; then
             remote="${_FC10}=${_CLRS}"
         else
             local offset
             local ahead
             local behind
-            offset="$(git status -sb | grep "##" | sed 's:ahead :↑:' | sed 's:,\? \?behind :↓:' | sed 's:.*\[\(.*\)\].*:\1:' | sed 's:\([[:digit:]]\+\)\(<\):\1 \2:')"
+            offset="$(echo "$compare_upstream" | sed 's:ahead :↑:' | sed 's:,\? \?behind :↓:' | sed 's:\[\?\]\?::g')"
             # Extract the 'ahead' part if it exists
             # Extract the 'ahead' part if it exists
             if [[ "$offset" =~ (↑[0-9]+) ]]; then
@@ -139,28 +139,28 @@ __prompt_cmd() {
         local unstaged
         local staged
         local untracked
-        unstaged="$(git diff --name-only)"   # Unstaged changes
-        staged="$(git diff --cached --name-only)"   # Staged changes
-        untracked="$(git ls-files --others --exclude-standard)"   # Untracked files
+        unstaged="$(git diff --name-only 2>/dev/null )"   # Unstaged changes
+        staged="$(git diff --cached --name-only 2>/dev/null )"   # Staged changes
+        untracked="$(git ls-files --others --exclude-standard 2>/dev/null )"   # Untracked files
         workdirstatus="${unstaged:+"${_FC01}*${_CLRS}"}${staged:+"${_FC04}+${_CLRS}"}${untracked:+"${_FC03}?${_CLRS}"}"
         local dirty
-        dirty="$(git status --porcelain | grep -c -E '^[A-Z]')"
+        dirty="$(git status --porcelain 2>/dev/null | grep -c -E '^[A-Z]')"
         dirty="${dirty:+"${_FC09}!${_CLRS}"}"
         local stash_count
-        stash_count="$(git stash list | wc -l)"
+        stash_count="$(git stash list 2>/dev/null | wc -l)"
         if [ "${stash_count}" != "0" ]; then
             stash_count="${stash_count:+"${_FC02}S${stash_count}${_CLRS}"}"
         else
             stash_count=""
         fi
         local conflicts
-        conflicts="$(git diff --name-only --diff-filter=U)"
+        conflicts="$(git diff --name-only --diff-filter=U 2>/dev/null )"
         conflicts="${conflicts:+"${_FC01}X${_CLRS}"}"
         local remote_branch
         remote_branch="$(git rev-parse --abbrev-ref --symbolic-full-name @\{u\} 2>/dev/null)"
         remote_branch="${_FC11}${remote_branch}${_CLRS}"
         local detached_head
-        detached_head="$(git symbolic-ref -q HEAD)"
+        detached_head="$(git symbolic-ref -q HEAD 2>/dev/null )"
         detached_head="${detached_head:+"DECAPITATED"}"
         # if git status --ahead-behind | grep "Your branch is"
         # PS1+='━@━'
