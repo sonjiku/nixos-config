@@ -15,6 +15,7 @@ in {
     ./nvim.nix
   ];
 
+# TODO: find a way to not use absolute path
   xdg.dataFile."configfiles".text = builtins.concatStringsSep "\n" prg;
   xdg.configFile =
     builtins.listToAttrs
@@ -22,7 +23,7 @@ in {
         x: {
           name = "${x}";
           value = {
-            source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.userDirs.extraConfig.XDG_CODE_DIR}/nixos-config/modules/home-manager/dot/config/${x}";
+            source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/nixos/current/modules/home-manager/dot/config/${x}";
           };
         }
       )

@@ -5,6 +5,7 @@
     imports = [ 
         ./settings
         ./device/hp-14-dk1008nv
+        ./hardware
         ./os
     ];
 }

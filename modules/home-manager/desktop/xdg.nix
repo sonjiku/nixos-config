@@ -21,7 +21,7 @@
             extraConfig = {
                 XDG_CODE_DIR = "${config.home.homeDirectory}/code";
                 XDG_GAME_DIR = "${config.home.homeDirectory}/games";
-                XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/games";
+                XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/screenshots";
             };
         };
         mimeApps = {

@@ -32,16 +32,16 @@
       };
       # color.ui = false;
       ## url fixer
-      url = {
-        "git@github.com:" = {
-          insteadOf = [
-            "gh:"
-          ];
-          pushInsteadOf = [
-            "https://github.com/"
-          ];
-        };
-      };
+      # url = {
+      #   "git@github.com:" = {
+      #     insteadOf = [
+      #       "gh:"
+      #     ];
+      #     pushInsteadOf = [
+      #       "https://github.com/"
+      #     ];
+      #   };
+      # };
       ## better diffing
       diff.algorithm = "histogram";
       ## plz no corruption
