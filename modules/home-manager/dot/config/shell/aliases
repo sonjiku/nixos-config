@@ -13,8 +13,8 @@ alias fm='$FILE_MANAGER'
 # Quick ls
 alias dirc="dir --color=auto"
 alias vdir="LC_COLLATE=C vdir --color=auto --group-directories-first -ahF"
-alias l="ls --color=auto -F"
-alias la="l -a"
+# alias l="ls --color=auto -F"
+# alias la="l -a"
 # Quick cd
 alias cdc='cd $HOME/.config'
 alias cds="cd /etc/systemd/system"

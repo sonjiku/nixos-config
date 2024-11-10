@@ -1,0 +1,41 @@
+[[manager.prepend_keymap]]
+on   = "!"
+run  = 'shell "$SHELL" --block --confirm'
+desc = "Open shell here"
+[[input.prepend_keymap]]
+on   = "<Esc>"
+run  = "close"
+desc = "Cancel input"
+[[manager.prepend_keymap]]
+on   = "l"
+run  = "plugin --sync smart-enter"
+desc = "Enter the child directory, or open the file"
+[[manager.prepend_keymap]]
+on  = "y"
+run = [ '''
+	shell 'for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list' --confirm
+''', "yank" ]
+[[manager.prepend_keymap]]
+on = [ "g", "r" ]
+run = '''
+	shell 'ya pub dds-cd --str "$(git rev-parse --show-toplevel)"' --confirm
+'''
+[[manager.prepend_keymap]]
+on  = "k"
+run = "plugin --sync arrow --args=-1"
+
+[[manager.prepend_keymap]]
+on  = "j"
+run = "plugin --sync arrow --args=1"
+[[manager.prepend_keymap]]
+on   = "T"
+run  = "plugin --sync max-preview"
+desc = "Maximize or restore preview"
+[[manager.prepend_keymap]]
+on   = [ "c", "m" ]
+run  = "plugin chmod"
+desc = "Chmod on selected files"
+[[manager.prepend_keymap]]
+on   = [ "t", "t" ]
+run  = "plugin --sync hide-preview"
+desc = "Hide or show preview"

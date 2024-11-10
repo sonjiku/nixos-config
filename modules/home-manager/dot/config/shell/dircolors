@@ -1,0 +1,243 @@
+# Configuration file for dircolors, a utility to help you set the
+# LS_COLORS environment variable used by GNU ls with the --color option.
+# Copyright (C) 1996-2024 Free Software Foundation, Inc.
+# Copying and distribution of this file, with or without modification,
+# are permitted provided the copyright notice and this notice are preserved.
+#
+# The keywords COLOR, OPTIONS, and EIGHTBIT (honored by the
+# slackware version of dircolors) are recognized but ignored.
+# Global config options can be specified before TERM or COLORTERM entries
+# ===================================================================
+# Terminal filters
+# ===================================================================
+# Below are TERM or COLORTERM entries, which can be glob patterns, which
+# restrict following config to systems with matching environment variables.
+COLORTERM ?*
+TERM Eterm
+TERM ansi
+TERM *color*
+TERM con[0-9]*x[0-9]*
+TERM cons25
+TERM console
+TERM cygwin
+TERM *direct*
+TERM dtterm
+TERM gnome
+TERM hurd
+TERM jfbterm
+TERM konsole
+TERM kterm
+TERM linux
+TERM linux-c
+TERM mlterm
+TERM putty
+TERM rxvt*
+TERM screen*
+TERM st
+TERM terminator
+TERM tmux*
+TERM vt100
+TERM xterm*
+# ===================================================================
+# Basic file attributes
+# ===================================================================
+# Below are the color init strings for the basic file types.
+# One can use codes for 256 or more colors supported by modern terminals.
+# The default color codes use the capabilities of an 8 color terminal
+# with some additional attributes as per the following codes:
+# Attribute codes:
+# 00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
+# Text color codes:
+# 30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white
+# Background color codes:
+# 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
+#NORMAL 00 # no color code at all
+#FILE 00 # regular file: use no color at all
+RESET 0 # reset to "normal" color
+DIR 01;34 # directory
+LINK 01;36 # symbolic link. (If you set this to 'target' instead of a
+ # numerical value, the color is as for the file pointed to.)
+MULTIHARDLINK 00 # regular file with more than one link
+FIFO 40;33 # pipe
+SOCK 01;35 # socket
+DOOR 01;35 # door
+BLK 40;33;01 # block device driver
+CHR 40;33;01 # character device driver
+ORPHAN 40;31;01 # symlink to nonexistent file, or non-stat'able file ...
+MISSING 00 # ... and the files they point to
+SETUID 37;41 # file that is setuid (u+s)
+SETGID 30;43 # file that is setgid (g+s)
+CAPABILITY 00 # file with capability (very expensive to lookup)
+STICKY_OTHER_WRITABLE 30;42 # dir that is sticky and other-writable (+t,o+w)
+OTHER_WRITABLE 34;42 # dir that is other-writable (o+w) and not sticky
+STICKY 37;44 # dir with the sticky bit set (+t) and not other-writable
+# This is for files with execute permission:
+EXEC 01;32
+# ===================================================================
+# File extension attributes
+# ===================================================================
+# List any file extensions like '.gz' or '.tar' that you would like ls
+# to color below. Put the suffix, a space, and the color init string.
+# (and any comments you want to add after a '#').
+# Suffixes are matched case insensitively, but if you define different
+# init strings for separate cases, those will be honored.
+#
+# If you use DOS-style suffixes, you may want to uncomment the following:
+#.cmd 01;32 # executables (bright green)
+#.exe 01;32
+#.com 01;32
+#.btm 01;32
+#.bat 01;32
+# Or if you want to color scripts even if they do not have the
+# executable bit actually set.
+#.sh 01;32
+#.csh 01;32
+# archives or compressed (bright red)
+.7z 38;5;40
+.ace 39;5;40
+.alz 39;5;40
+.apk 39;5;40
+.arc 39;5;40
+.arj 39;5;40
+.bz 39;5;40
+.bz2 39;5;40
+.cab 39;5;40
+.cpio 39;5;40
+.crate 39;5;40
+.deb 39;5;40
+.drpm 39;5;40
+.dwm 39;5;40
+.dz 39;5;40
+.ear 39;5;40
+.egg 39;5;40
+.esd 39;5;40
+.gz 39;5;40
+.jar 39;5;40
+.lha 39;5;40
+.lrz 39;5;40
+.lz 39;5;40
+.lz4 39;5;40
+.lzh 39;5;40
+.lzma 39;5;40
+.lzo 39;5;40
+.pyz 39;5;40
+.rar 39;5;40
+.rpm 39;5;40
+.rz 39;5;40
+.sar 39;5;40
+.swm 39;5;40
+.t7z 39;5;40
+.tar 39;5;40
+.taz 39;5;40
+.tbz 39;5;40
+.tbz2 39;5;40
+.tgz 39;5;40
+.tlz 39;5;40
+.txz 39;5;40
+.tz 39;5;40
+.tzo 39;5;40
+.tzst 39;5;40
+.udeb 39;5;40
+.war 39;5;40
+.whl 39;5;40
+.wim 39;5;40
+.xz 39;5;40
+.z 39;5;40
+.zip 39;5;40
+.zoo 39;5;40
+.zst 39;5;40
+# image formats
+.avif 38;5;97
+.jpg 38;5;97
+.jpeg 38;5;97
+.mjpg 38;5;97
+.mjpeg 38;5;97
+.gif 38;5;97
+.bmp 38;5;97
+.pbm 38;5;97
+.pgm 38;5;97
+.ppm 38;5;97
+.tga 38;5;97
+.xbm 38;5;97
+.xpm 38;5;97
+.tif 38;5;97
+.tiff 38;5;97
+.png 38;5;97
+.svg 38;5;99
+.svgz 38;5;99
+.mng 38;5;99
+.pcx 38;5;99
+.mov 38;5;114
+.mpg 38;5;114
+.mpeg 38;5;114
+.m2v 38;5;114
+.mkv 38;5;114
+.webm 38;5;115
+.webp 38;5;97
+.ogm 38;5;114
+.mp4 38;5;114
+.m4v 38;5;114
+.mp4v 38;5;114
+.vob 38;5;115;1
+.qt 38;5;114
+.nuv 38;5;114
+.wmv 38;5;114
+.asf 38;5;115
+.rm 38;5;114
+.rmvb 38;5;114
+.flc 38;5;114
+.avi 38;5;114
+.fli 38;5;97
+.flv 38;5;115
+.gl 38;5;213
+.dl 38;5;213
+.xcf 38;5;7
+.xwd 38;5;7
+.yuv 38;5;7
+.cgm 38;5;7
+.emf 38;5;7
+# https://wiki.xiph.org/MIME_Types_and_File_Extensions
+.ogv 38;5;115
+.ogx 38;5;115
+# audio formats
+.aac 38;5;137;1
+.au 38;5;137;1
+.flac 38;5;137;1
+.m4a 38;5;137;1
+.mid 38;5;137;1
+.midi 38;5;137;1
+.mka 38;5;137;1
+.mp3 38;5;137;1
+.mpc 38;5;137;1
+.ogg 38;5;137;1
+.ra 38;5;137;1
+.wav 38;5;137;1
+# https://wiki.xiph.org/MIME_Types_and_File_Extensions
+.oga 38;5;137;1
+.opus 38;5;137;1
+.spx 38;5;137;1
+.xspf 38;5;137;1
+# backup files
+*~ 38;5;241
+*# 38;5;241
+.bak 38;5;241
+.crdownload 38;5;241
+.dpkg-dist 38;5;241
+.dpkg-new 38;5;241
+.dpkg-old 38;5;241
+.dpkg-tmp 38;5;241
+.old 38;5;241
+.orig 38;5;241
+.part 38;5;241
+.rej 38;5;241
+.rpmnew 38;5;241
+.rpmorig 38;5;241
+.rpmsave 38;5;241
+.swp 38;5;241
+.tmp 38;5;241
+.ucf-dist 38;5;241
+.ucf-new 38;5;241
+.ucf-old 38;5;241
+#
+# Subsequent TERM or COLORTERM entries, can be used to add / override
+# config specific to those matching environment variables.

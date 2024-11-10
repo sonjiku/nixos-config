@@ -1,84 +1,83 @@
-#!/usr/bin/env bash
+#! /usr/bin/env zsh
 
-# If not running interactively, don't do anything!
-[[ $- != *i* ]] && return
+autoload -Uz promptinit && promptinit
 
-
-####################
-#      COLORS      #
-####################
-_ESC=$(printf "\e")
-# For prompt searching
-# Bold
-_BOLD="\[${_ESC}[1m\]"
-_BOLR="\[${_ESC}[21m\]"
-# Dim
-_DIMC="\[${_ESC}[2m\]"
-_DIMR="\[${_ESC}[22m\]"
-# Italic
-_ITLC="\[${_ESC}[3m\]"
-_ITLR="\[${_ESC}[23m\]"
-# Underline
-_UNLN="\[${_ESC}[4m\]"
-_UNLR="\[${_ESC}[24m\]"
-# Blink
-_BLNK="\[${_ESC}[5m\]"
-_BLNR="\[${_ESC}[25m\]"
-# Reverse
-_RVRS="\[${_ESC}[7m\]"
-_RVRR="\[${_ESC}[27m\]"
-# Hidden
-_HDDN="\[${_ESC}[8m\]"
-_HDDR="\[${_ESC}[28m\]"
-# Overline
-_OVLN="\[${_ESC}[53m\]"
-# Reset
-_CLRS="\[${_ESC}[0m\]"
-## Background
-_BCDF="\[${_ESC}[49m\]"
-_BC00="\[${_ESC}[40m\]"
-_BC01="\[${_ESC}[41m\]"
-_BC02="\[${_ESC}[42m\]"
-_BC03="\[${_ESC}[43m\]"
-_BC04="\[${_ESC}[44m\]"
-_BC05="\[${_ESC}[45m\]"
-_BC06="\[${_ESC}[46m\]"
-_BC07="\[${_ESC}[47m\]"
-_BC08="\[${_ESC}[49m\]"
-_BC09="\[${_ESC}[100m\]"
-_BC10="\[${_ESC}[101m\]"
-_BC11="\[${_ESC}[102m\]"
-_BC12="\[${_ESC}[103m\]"
-_BC13="\[${_ESC}[104m\]"
-_BC14="\[${_ESC}[105m\]"
-_BC15="\[${_ESC}[106m\]"
-## FOREGROUND"\[${_ESC}[107m\]"
-_FCDF="\[${_ESC}[39m\]"
-_FC00="\[${_ESC}[30m\]"
-_FC01="\[${_ESC}[31m\]"
-_FC02="\[${_ESC}[32m\]"
-_FC03="\[${_ESC}[33m\]"
-_FC04="\[${_ESC}[34m\]"
-_FC05="\[${_ESC}[35m\]"
-_FC06="\[${_ESC}[36m\]"
-_FC07="\[${_ESC}[37m\]"
-_FC08="\[${_ESC}[90m\]"
-_FC09="\[${_ESC}[91m\]"
-_FC10="\[${_ESC}[92m\]"
-_FC11="\[${_ESC}[93m\]"
-_FC12="\[${_ESC}[94m\]"
-_FC13="\[${_ESC}[95m\]"
-_FC14="\[${_ESC}[96m\]"
-_FC15="\[${_ESC}[97m\]"
-
-
-__prompt_cmd() {
-    local retval="$?"
+prompt_mytheme_setup() {
+    # local retval="$?"
     local nixsign="┗"
     local exitsign="━"
     local promptsign="❱"
     local nondirenvdirs=""
     local direnvdirs=""
+
+    ####################
+    #      COLORS      #
+    ####################
+    _ESC=$(printf "\e")
+    _NL=$'\n'
+    # For prompt searching
+    # Bold
+    _BOLD="%{${_ESC}[1m%}"
+    _BOLR="%{${_ESC}[21m%}"
+    # Dim
+    _DIMC="%{${_ESC}[2m%}"
+    _DIMR="%{${_ESC}[22m%}"
+    # Itali
+    _ITLC="%{${_ESC}[3m%}"
+    _ITLR="%{${_ESC}[23m%}"
+    # Underne
+    _UNLN="%{${_ESC}[4m%}"
+    _UNLR="%{${_ESC}[24m%}"
+    # Blink
+    _BLNK="%{${_ESC}[5m%}"
+    _BLNR="%{${_ESC}[25m%}"
+    # Rever
+    _RVRS="%{${_ESC}[7m%}"
+    _RVRR="%{${_ESC}[27m%}"
+    # Hidde
+    _HDDN="%{${_ESC}[8m%}"
+    _HDDR="%{${_ESC}[28m%}"
+    # Overle
+    _OVLN="%{${_ESC}[53m%}"
+    # Reset
+    _CLRS="%{${_ESC}[0m%}"
+    ## Backound
+    _BCDF="%{${_ESC}[49m%}"
+    _BC00="%{${_ESC}[40m%}"
+    _BC01="%{${_ESC}[41m%}"
+    _BC02="%{${_ESC}[42m%}"
+    _BC03="%{${_ESC}[43m%}"
+    _BC04="%{${_ESC}[44m%}"
+    _BC05="%{${_ESC}[45m%}"
+    _BC06="%{${_ESC}[46m%}"
+    _BC07="%{${_ESC}[47m%}"
+    _BC08="%{${_ESC}[49m%}"
+    _BC09="%{${_ESC}[100m%}"
+    _BC10="%{${_ESC}[101m%}"
+    _BC11="%{${_ESC}[102m%}"
+    _BC12="%{${_ESC}[103m%}"
+    _BC13="%{${_ESC}[104m%}"
+    _BC14="%{${_ESC}[105m%}"
+    _BC15="%{${_ESC}[106m%}"
+    ## FOREOUND"%{\[${_ESC}[107m%}"
+    _FCDF="%{${_ESC}[39m%}"
+    _FC00="%{${_ESC}[30m%}"
+    _FC01="%{${_ESC}[31m%}"
+    _FC02="%{${_ESC}[32m%}"
+    _FC03="%{${_ESC}[33m%}"
+    _FC04="%{${_ESC}[34m%}"
+    _FC05="%{${_ESC}[35m%}"
+    _FC06="%{${_ESC}[36m%}"
+    _FC07="%{${_ESC}[37m%}"
+    _FC08="%{${_ESC}[90m%}"
+    _FC09="%{${_ESC}[91m%}"
+    _FC10="%{${_ESC}[92m%}"
+    _FC11="%{${_ESC}[93m%}"
+    _FC12="%{${_ESC}[94m%}"
+    _FC13="%{${_ESC}[95m%}"
+    _FC14="%{${_ESC}[96m%}"
+    _FC15="%{${_ESC}[97m%}"
+
 
     ## CWD WITH DIRENV INFO
     _CWDPS="${_ITLC}"
@@ -92,7 +91,7 @@ __prompt_cmd() {
         _CWDPS+="${_ITLC}"
         _CWDPS+="${_FC05}${direnvdirs}${_CLRS}"
     else
-        _CWDPS="${_ITLC}${_FC04}${PWD//$HOME/\~}${_CLRS}"
+        _CWDPS="${_ITLC}${_FC04}%~${_CLRS}"
     fi
     _CWDPS+="${_CLRS}"
     if [ -n "${VIRTUAL_ENV}" ]; then
@@ -197,13 +196,13 @@ __prompt_cmd() {
         nixsign="${_FC03}${nixsign}${_CLRS}"
     fi
     ### Check if previour command returned true or false
-    if [ "$retval" -eq 0 ]; then
-        exitsign="${_FC02}${exitsign}${_CLRS}"
-    else
-        exitsign="${_FC01}${exitsign}${_CLRS}"
-    fi
+    # if [ "$retval" -eq 0 ]; then
+    #     exitsign="${_FC02}${exitsign}${_CLRS}"
+    # else
+    #     exitsign="${_FC01}${exitsign}${_CLRS}"
+    # fi
     ### Check if user is root
-    if [ $UID == 0 ]; then
+    if [ $UID -eq 0 ]; then
         promptsign="${_FC01}${_BLNK}${promptsign}${_CLRS}"
     else
         promptsign="${_FC14}${_BLNK}${promptsign}${_CLRS}"
@@ -214,35 +213,51 @@ __prompt_cmd() {
     ## PS0 so commands don't ruin our beautiful prompt
 
     
-    PS0="\n"
+    PS0="${_NL}"
 
     ## PS1
-    PS1="\n"
+    PS1="${_NL}"
     PS1+="${_FCDF}┏━${_CLRS}"
     ### PWD
     PS1+="${_CWDPS}"
     # PS1+="${_ITLC}${_FC04}\w${_CLRS}"
     PS1+="${_GITPS}"
     PS1+="${_JOBSPS}"
-    PS1+="\n"
+    PS1+="${_NL}"
     PS1+="${_SIGNPS}"
     PS1+=" "
 
 
     ## PS2
     PS2=""
-    PS2+="${_DIMC}━━${_CLRS}${_BOLD}${_FC06}+${_CLRS} "
+    PS2+="${_DIMC}━━${_CLRS}%B${_FC06}+${_CLRS} "
     ## PS3
     PS3=""
     PS3+="${_DIMC}━━${_CLRS}${_FC06}>${_CLRS} "
     ## PS4
     PS4=""
     PS4+="${_DIMC}━━${_CLRS}${_FC06}>${_CLRS} "
-
-    history -a
-    history -c
-    history -r
 }
+# prompt_mytheme_setup() {
+#     # The primary prompt string, printed before a command is read. It undergoes
+#     # a special form of expansion before being displayed; see EXPANSION OF
+#     # PROMPT SEQUENCES in zshmisc(1). The default is `%m%# '.
+#     PS1="%~%# "
+#     RPS1="GAY"
+#     # The secondary prompt, printed when the shell needs more information to
+#     # complete a command. It is expanded in the same way as PS1. The default is
+#     # `%_> ', which displays any shell constructs or quotation marks which are
+#     # currently being processed.
+#     PS2="%_> "
+#     # Selection prompt used within a select loop. It is expanded in the same
+#     # way as PS1. The default is `?# '.
+#     PS3="#> "
+#     # The execution trace prompt. Default is `+%N:%i> ', which displays the
+#     # name of the current shell structure and the line number within it. In sh
+#     # or ksh emulation, the default is `+ '.
+#     PS4="+%N:%i> "
+# }
 
-## PS0 don't mess with it since it could be set for some reason
-PROMPT_COMMAND="${PROMPT_COMMAND}; __prompt_cmd"
+prompt_themes+=( mytheme )
+
+prompt mytheme

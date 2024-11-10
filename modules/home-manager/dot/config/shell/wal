@@ -51,5 +51,5 @@ export FZF_DEFAULT_OPTS="
 "
 
 # Fix LS_COLORS being unreadable.
-source $HOME/.config/shell/defaults/lscolors
+# source $HOME/.config/shell/defaults/lscolors
 

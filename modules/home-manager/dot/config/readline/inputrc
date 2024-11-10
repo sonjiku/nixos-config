@@ -1,63 +1,119 @@
+$include /etc/inputrc
+
+## Enable 8bit input
 set meta-flag on
 set input-meta on
+## Turns off 8th bit stripping
 set convert-meta off
+## Keep the 8th bit for display
 set output-meta on
+
+## none, visible or audible
+set bell-style none
+# Hide Control Characters
+set echo-control-characters off
+
+
+########################################
+## Completion                         ##
+########################################
 # Color files by types
 set colored-stats On
 # Append char to indicate type
 set visible-stats On
 # Mark symlinked directories
 set mark-symlinked-directories On
-# Case insesitive completion
+### Case insesitive completion
 set completion-ignore-case On
-# Max number of characters of common prefix for completions
+### Max number of characters of common prefix for completions
 set completion-prefix-display-length 3
-# Color the common prefix
+### Color the common prefix
 set colored-completion-prefix On
-# Color the common prefix in menu-complete
+### Color the common prefix in menu-complete
 set menu-complete-display-prefix On
 # List completions immediately
 set show-all-if-ambiguous On 
 set show-all-if-unmodified On
-# Hide Control Characters
-set echo-control-characters off
 
-# Set Vi mode 
+
+########################################
+## Vi Keybinds                        ##
+########################################
 set editing-mode vi
 set show-mode-in-prompt On
 # If inside VT
 $if term=linux
-    set vi-ins-mode-string "\1\e[?0c\2"
-    set vi-cmd-mode-string "\1\e[?8c\2"
+    set vi-ins-mode-string "\1\e]133;A\e\\\2\1\e[?0c\2"
+    set vi-cmd-mode-string "\1\e]133;A\e\\\2\1\e[?8c\2"
 $else
-    set vi-ins-mode-string "\1\e[5 q\2"
-    set vi-cmd-mode-string "\1\e[1 q\2"
+    set vi-ins-mode-string "\1\e]133;A\e\\\2\1\e[5 q\2"
+    set vi-cmd-mode-string "\1\e]133;A\e\\\2\1\e[1 q\2"
 $endif
 
-# Vi command mode binds
+## Vi command mode binds
 set keymap vi-command
-j: history-search-forward
-k: history-search-backward
-"G": beginning-of-history
-"gg": end-of-history
-
-# Vi insert mode binds
 set keymap vi-insert
-"\C-j": menu-complete
-"\C-k": menu-complete-backward
-"\C-d": kill-line
-"\C-r": overwrite-mode
-"\C-x": delete-char-or-list
+## Movement
 "\C-b": beginning-of-line
 "\C-e": end-of-line
-"\C-h": backward-word
-"\C-l": forward-word
-# History
+"\C-F": forward-char
+"\C-B": backward-char
+"\ef": forward-word
+"\eb": backward-word
+"\C-l": clear-screen
+"\el": redraw-current-line
+## tab for completion
+"\C-i": menu-complete
+"\e[Z": menu-complete-backward
+## Manipulating history
+"\ep": previous-history
+"\en": next-history
+"\eg": beginning-of-history
+"\eG": end-of-history
 "\C-p": history-search-backward
 "\C-n": history-search-forward
-# "\C-u": "\e[D"
-# "\C-u": "\e[C"
-# "\e\C-l": "\C-e | less\C-m"
-# "\e\C-y": "\C-ayes | \C-m"
-# "\es": "\C-a su -c '\C-e'\C-m"
-# "\e\C-b": "\C-e > /dev/null 2>&1 &\C-m"
+"\e\,": yank-nth-arg
+"\e\.": yank-last-arg
+## Text editing
+"\C-x": delete-char
+# "\C-x": delete-char-or-list
+"\C-h": backward-delete-char
+"\C-v": quoted-insert
+# "\C-t": transpose-chars
+"\et": transpose-chars
+# "\et": transpose-words
+"\eu": upcase-word
+"\el": downcase-word
+"\ec": capitalize-word
+## killing and yanking
+"\C-k": kill-line
+"\C-u": backward-kill-line
+# "\C-u": unix-line-discard
+# Kill backward from the cursor to the beginning of the current line. Save the killed text on the kill-ring.
+# "": kill-whole-line ()
+# Kill all characters on the current line, no matter where the cursor is. By default, this is unbound.
+"\ed": kill-word
+"\C-w": backward-kill-word
+# unix-word-rubout (C-w)
+# Kill the word behind the cursor, using white space as a word boundary. The killed text is saved on the kill-ring.
+# delete-horizontal-space ()
+# Delete all spaces and tabs around point. By default, this is unbound.
+"\C-y": yank
+
+# re-read-init-file (C-x C-r)
+# Read in the contents of your init file, and incorporate any bindings or variable assignments found there.
+# abort (C-g)
+# Abort the current editing command and ring the terminal's bell (subject to the setting of bell-style).
+# do-uppercase-version (M-a, M-b, ...)
+# Run the command that is bound to the corresoponding uppercase character.
+# prefix-meta (ESC)
+# Make the next character that you type be metafied. This is for people without a meta key. Typing `ESC f' is equivalent to typing `M-f'.
+# undo (C-_, C-x C-u)
+# Incremental undo, separately remembered for each line.
+# revert-line (M-r)
+# Undo all changes made to this line. This is like typing the undo command enough times to get back to the beginning.
+# tilde-expand (M-~)
+# Perform tilde expansion on the current word.
+# dump-functions ()
+# Print all of the functions and their key bindings to the readline output stream. If a numeric argument is supplied, the output is formatted in such a way that it can be made part of an inputrc file.
+# "\er": overwrite-mode

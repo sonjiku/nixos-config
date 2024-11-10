@@ -3,7 +3,11 @@
 **/openmw/**
 **/tmux/plugins/**
 **/nnn/plugins/**
+**/yazi/plugins/**
+**/cava/shaders/**
+**/qimgv/savedState.conf
 **/ncmpcpp/error.log
 **/ncmpcpp/patterns.list
 *log
 *tmp*
+*zcompdump
